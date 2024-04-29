@@ -1,6 +1,6 @@
 public class SimilarityChecker {
 
-    public boolean checkLength(String aaa, String bbb) {
-        return aaa.length() == bbb.length();
+    public boolean checkLength(String firstString, String secondString) {
+        return firstString.length() == secondString.length();
     }
 }
