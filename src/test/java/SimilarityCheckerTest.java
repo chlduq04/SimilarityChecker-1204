@@ -6,20 +6,21 @@ class SimilarityCheckerTest {
     @Test
     void checkIsSameLength() {
         SimilarityChecker similarityChecker = new SimilarityChecker();
-        assertEquals(true, similarityChecker.checkLength("AAA", "BBB"));
+        assertEquals(60, similarityChecker.checkLength("AAA", "BBB"));
     }
 
     @Test
     void checkIsNotSameLength() {
         SimilarityChecker similarityChecker = new SimilarityChecker();
-        assertEquals(false, similarityChecker.checkLength("AAA", "BBBC"));
+        assertEquals(40, similarityChecker.checkLength("AAA", "BBBC"));
+        assertEquals(40, similarityChecker.checkLength("AAAC", "BBB"));
     }
 
     @Test
     void checkNullString() {
         SimilarityChecker similarityChecker = new SimilarityChecker();
-        assertEquals(false, similarityChecker.checkLength(null, "BBBC"));
-        assertEquals(false, similarityChecker.checkLength("CCC", null));
-        assertEquals(false, similarityChecker.checkLength(null, null));
+        assertEquals(0, similarityChecker.checkLength(null, "BBBC"));
+        assertEquals(0, similarityChecker.checkLength("CCC", null));
+        assertEquals(0, similarityChecker.checkLength(null, null));
     }
 }
