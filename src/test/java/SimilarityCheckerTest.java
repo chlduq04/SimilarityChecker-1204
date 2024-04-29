@@ -40,10 +40,10 @@ class SimilarityCheckerTest {
             similarityChecker.checkSameAlpha(Dbe, EEd);
             fail();
         } catch (IllegalArgumentException e) {
-        }    
+        }
     }
-  
-   @Test
+
+    @Test
     void checkIsSameLength() {
         SimilarityChecker similarityChecker = new SimilarityChecker();
         assertEquals(60, similarityChecker.checkLength("AAA", "BBB"));
