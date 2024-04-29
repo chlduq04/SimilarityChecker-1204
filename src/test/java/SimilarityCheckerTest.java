@@ -7,14 +7,24 @@ class SimilarityCheckerTest {
     @Test
     void checkIsSameAlpha() {
         SimilarityChecker similarityChecker = new SimilarityChecker();
-        boolean isSame = similarityChecker.checkSameAlpha("AAA", "AAA");
-        assertEquals(true, isSame);
+        assertEquals(true, similarityChecker.checkSameAlpha("AAA", "AAA"));
     }
 
     @Test
     void checkIsNotSameAlpha() {
         SimilarityChecker similarityChecker = new SimilarityChecker();
-        boolean isSame = similarityChecker.checkSameAlpha("BAA", "AAA");
-        assertEquals(false, isSame);
+        assertEquals(false, similarityChecker.checkSameAlpha("BAA", "AAA"));
     }
+
+    @Test
+    void checkIsNullOrEmptyAlpha() {
+        SimilarityChecker similarityChecker = new SimilarityChecker();
+        assertEquals(false, similarityChecker.checkSameAlpha(null, "AAA"));
+        assertEquals(false, similarityChecker.checkSameAlpha("BAA", "AAA"));
+        assertEquals(false, similarityChecker.checkSameAlpha(null, "AAA"));
+        assertEquals(false, similarityChecker.checkSameAlpha("", "AAA"));
+        assertEquals(false, similarityChecker.checkSameAlpha("BAA", ""));
+        assertEquals(false, similarityChecker.checkSameAlpha("", ""));
+    }
+
 }
