@@ -3,8 +3,7 @@ import java.math.BigDecimal;
 public class SimilarityChecker {
 
     public float checkLength(String firstString, String secondString) {
-        if (firstString == null || secondString == null) return 0;
-        if (firstString.isEmpty() || secondString.isEmpty()) return 0;
+        if (isAnyBlank(firstString, secondString)) return 0;
         int firstLength = firstString.length();
         int secondLength = secondString.length();
         BigDecimal maxLength;
@@ -17,6 +16,10 @@ public class SimilarityChecker {
             minLength = new BigDecimal(firstLength);
         }
         return getScore(maxLength, minLength);
+    }
+
+    private static boolean isAnyBlank(String firstString, String secondString) {
+        return firstString == null || secondString == null || firstString.isEmpty() || secondString.isEmpty();
     }
 
     private static float getScore(BigDecimal maxLength, BigDecimal minLength) {
