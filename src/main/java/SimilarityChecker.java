@@ -15,6 +15,10 @@ public class SimilarityChecker {
             maxLength = new BigDecimal(secondLength);
             minLength = new BigDecimal(firstLength);
         }
+        return getScore(maxLength, minLength);
+    }
+
+    private static float getScore(BigDecimal maxLength, BigDecimal minLength) {
         BigDecimal numerator = maxLength.subtract(minLength); // a - b
         BigDecimal fraction = numerator.divide(minLength, 10, BigDecimal.ROUND_DOWN);
         BigDecimal score = BigDecimal.ONE.subtract(fraction).multiply(new BigDecimal("60"));
