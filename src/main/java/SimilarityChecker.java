@@ -15,9 +15,13 @@ public class SimilarityChecker {
             maxLength = new BigDecimal(secondLength);
             minLength = new BigDecimal(firstLength);
         }
+        if (isMoreThanTwice(maxLength, minLength)) return 0;
         return getScore(maxLength, minLength);
     }
-
+    private static boolean isMoreThanTwice(BigDecimal maxLength, BigDecimal minLength) {
+        BigDecimal divisionResult = maxLength.divide(minLength, 10, BigDecimal.ROUND_DOWN);
+        return divisionResult.compareTo(new BigDecimal("2")) >= 0;
+    }
     private static boolean isAnyBlank(String firstString, String secondString) {
         return firstString == null || secondString == null || firstString.isEmpty() || secondString.isEmpty();
     }

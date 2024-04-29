@@ -31,4 +31,11 @@ class SimilarityCheckerTest {
         assertEquals(0, similarityChecker.checkLength("CCC", ""));
         assertEquals(0, similarityChecker.checkLength("", ""));
     }
+
+    @Test
+    void checkLengthMoreThanTwiceString() {
+        SimilarityChecker similarityChecker = new SimilarityChecker();
+        assertEquals(0, similarityChecker.checkLength("B", "BBBC"));
+        assertEquals(0, similarityChecker.checkLength("BA", "BBBCAAA"));
+    }
 }
