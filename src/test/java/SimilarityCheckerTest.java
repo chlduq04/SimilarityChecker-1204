@@ -31,17 +31,16 @@ class SimilarityCheckerTest {
     @Test
     void checkIsNotBigAlpha() {
         SimilarityChecker similarityChecker = new SimilarityChecker();
+        checkException(similarityChecker, "bbb", "aaa");
+        checkException(similarityChecker, "32b", "54bn");
+        checkException(similarityChecker, "Dbe", "EEd");
+    }
+
+    private static void checkException(SimilarityChecker similarityChecker, String Dbe, String EEd) {
         try {
-            similarityChecker.checkSameAlpha("bbb", "aaa");
+            similarityChecker.checkSameAlpha(Dbe, EEd);
             fail();
-        } catch (IllegalArgumentException e) {}
-        try {
-            similarityChecker.checkSameAlpha("32b", "54bn");
-            fail();
-        } catch (IllegalArgumentException e) {}
-        try {
-            similarityChecker.checkSameAlpha("Dbe", "EEd");
-            fail();
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalArgumentException e) {
+        }
     }
 }

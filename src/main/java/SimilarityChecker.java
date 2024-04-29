@@ -6,6 +6,7 @@ public class SimilarityChecker {
     public static final int CHAR_A_INT_VALUE = 65;
     public static final int MAX_SCORE = 40;
     public static final int DEFAULT_COUNT = 0;
+    public static final String BIG_ALPHA_REGEX = "^[A-Z]*$";
 
     boolean[] firstAlphabetChecker;
     boolean[] secondAlphabetChecker;
@@ -16,16 +17,17 @@ public class SimilarityChecker {
 
     public float checkSameAlpha(String firstString, String secondString) {
         if (isAnyBlank(firstString, secondString)) return 0;
-        String regex = "^[A-Z]*$";
-        boolean isFirstBitAlph = Pattern.matches(regex, firstString);
-        boolean isSecondBitAlph = Pattern.matches(regex, secondString);
-        if (!isFirstBitAlph || !isSecondBitAlph) {
-            throw new IllegalArgumentException();
-        }
+        isNotBigAlpha(firstString, secondString);
         initChecker(firstString, secondString);
         setChecker();
         calAlphaCount();
         return getScore();
+    }
+
+    private static void isNotBigAlpha(String firstString, String secondString) {
+        if (!Pattern.matches(BIG_ALPHA_REGEX, firstString) || !Pattern.matches(BIG_ALPHA_REGEX, secondString)) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private static boolean isAnyBlank(String firstString, String secondString) {
@@ -42,14 +44,21 @@ public class SimilarityChecker {
     }
 
     private void setChecker() {
-        checkAlphabet(firstString, firstAlphabetChecker);
-        checkAlphabet(secondString, secondAlphabetChecker);
+        checkFirstAlphabet();
+        checkSecondAlphabet();
     }
 
-    private void checkAlphabet(String alphabet, boolean[] checker) {
-        for (int i = 0; i < alphabet.length(); i++) {
-            int index = alphabet.charAt(i) - CHAR_A_INT_VALUE;
-            checker[index] = true;
+    private void checkFirstAlphabet() {
+        for (int i = 0; i < firstString.length(); i++) {
+            int index = firstString.charAt(i) - CHAR_A_INT_VALUE;
+            firstAlphabetChecker[index] = true;
+        }
+    }
+
+    private void checkSecondAlphabet() {
+        for (int i = 0; i < secondString.length(); i++) {
+            int index = secondString.charAt(i) - CHAR_A_INT_VALUE;
+            secondAlphabetChecker[index] = true;
         }
     }
 
