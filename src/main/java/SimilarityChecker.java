@@ -4,44 +4,56 @@ public class SimilarityChecker {
     public static final int CHECKER_SIZE = 25;
     public static final int CHAR_A_INT_VALUE = 65;
     public static final int MAX_SCORE = 40;
-    boolean[] firstAlphaChecker;
-    boolean[] secondAlphaChecker;
+    public static final int DEFAULT_COUNT = 0;
+
+    boolean[] firstAlphabetChecker;
+    boolean[] secondAlphabetChecker;
     int sameCnt;
     int totalCnt;
+    String firstString;
+    String secondString;
+
     public float checkSameAlpha(String firstString, String secondString) {
         if (isAnyBlank(firstString, secondString)) return 0;
-        initChecker();
-        setChecker(firstString, secondString);
+        initChecker(firstString, secondString);
+        setChecker();
         calAlphaCount();
         return getScore();
     }
 
+    private static boolean isAnyBlank(String firstString, String secondString) {
+        return firstString == null || secondString == null || firstString.isEmpty() || secondString.isEmpty();
+    }
+
+    private void initChecker(String firstString, String secondString) {
+        this.firstString = firstString;
+        this.secondString = secondString;
+        firstAlphabetChecker = new boolean[CHECKER_SIZE];
+        secondAlphabetChecker = new boolean[CHECKER_SIZE];
+        sameCnt = DEFAULT_COUNT;
+        totalCnt = DEFAULT_COUNT;
+    }
+
+    private void setChecker() {
+        checkAlphabet(firstString, firstAlphabetChecker);
+        checkAlphabet(secondString, secondAlphabetChecker);
+    }
+
+    private void checkAlphabet(String alphabet, boolean[] checker) {
+        for (int i = 0; i < alphabet.length(); i++) {
+            int index = alphabet.charAt(i) - CHAR_A_INT_VALUE;
+            checker[index] = true;
+        }
+    }
+
     private void calAlphaCount() {
         for (int i = 0; i < 25; i++) {
-            if (firstAlphaChecker[i] || secondAlphaChecker[i]) {
-                if (firstAlphaChecker[i] && secondAlphaChecker[i]) {
+            if (firstAlphabetChecker[i] || secondAlphabetChecker[i]) {
+                if (firstAlphabetChecker[i] && secondAlphabetChecker[i]) {
                     sameCnt++;
                 }
                 totalCnt++;
             }
-        }
-    }
-
-    private void initChecker() {
-        firstAlphaChecker = new boolean[CHECKER_SIZE];
-        secondAlphaChecker = new boolean[CHECKER_SIZE];
-        sameCnt = 0;
-        totalCnt = 0;
-    }
-
-    private void setChecker(String firstString, String secondString) {
-        for (int i = 0; i < firstString.length(); i++) {
-            int index = firstString.charAt(i) - CHAR_A_INT_VALUE;
-            firstAlphaChecker[index] = true;
-        }
-        for (int i = 0; i < secondString.length(); i++) {
-            int index = secondString.charAt(i) - CHAR_A_INT_VALUE;
-            secondAlphaChecker[index] = true;
         }
     }
 
@@ -52,9 +64,5 @@ public class SimilarityChecker {
         BigDecimal divisionResult = bigA.divide(bigB, 10, BigDecimal.ROUND_DOWN); // bigA / bigB
         BigDecimal finalResult = divisionResult.multiply(new BigDecimal(MAX_SCORE));
         return finalResult.floatValue();
-    }
-
-    private static boolean isAnyBlank(String firstString, String secondString) {
-        return firstString == null || secondString == null || firstString.isEmpty() || secondString.isEmpty();
     }
 }
