@@ -23,4 +23,12 @@ class SimilarityCheckerTest {
         assertEquals(0, similarityChecker.checkLength("CCC", null));
         assertEquals(0, similarityChecker.checkLength(null, null));
     }
+
+    @Test
+    void checkEmptyString() {
+        SimilarityChecker similarityChecker = new SimilarityChecker();
+        assertEquals(0, similarityChecker.checkLength("", "BBBC"));
+        assertEquals(0, similarityChecker.checkLength("CCC", ""));
+        assertEquals(0, similarityChecker.checkLength("", ""));
+    }
 }

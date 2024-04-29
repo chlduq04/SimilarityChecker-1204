@@ -4,6 +4,7 @@ public class SimilarityChecker {
 
     public float checkLength(String firstString, String secondString) {
         if (firstString == null || secondString == null) return 0;
+        if (firstString.isEmpty() || secondString.isEmpty()) return 0;
         int firstLength = firstString.length();
         int secondLength = secondString.length();
         BigDecimal maxLength;
