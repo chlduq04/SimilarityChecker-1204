@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class SimilarityCheckerTest {
 
@@ -27,5 +28,20 @@ class SimilarityCheckerTest {
         assertEquals(0, similarityChecker.checkSameAlpha("", ""));
     }
 
-
+    @Test
+    void checkIsNotBigAlpha() {
+        SimilarityChecker similarityChecker = new SimilarityChecker();
+        try {
+            similarityChecker.checkSameAlpha("bbb", "aaa");
+            fail();
+        } catch (IllegalArgumentException e) {}
+        try {
+            similarityChecker.checkSameAlpha("32b", "54bn");
+            fail();
+        } catch (IllegalArgumentException e) {}
+        try {
+            similarityChecker.checkSameAlpha("Dbe", "EEd");
+            fail();
+        } catch (IllegalArgumentException e) {}
+    }
 }

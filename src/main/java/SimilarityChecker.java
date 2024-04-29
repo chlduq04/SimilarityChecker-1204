@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.util.regex.Pattern;
 
 public class SimilarityChecker {
     public static final int CHECKER_SIZE = 25;
@@ -15,6 +16,12 @@ public class SimilarityChecker {
 
     public float checkSameAlpha(String firstString, String secondString) {
         if (isAnyBlank(firstString, secondString)) return 0;
+        String regex = "^[A-Z]*$";
+        boolean isFirstBitAlph = Pattern.matches(regex, firstString);
+        boolean isSecondBitAlph = Pattern.matches(regex, secondString);
+        if (!isFirstBitAlph || !isSecondBitAlph) {
+            throw new IllegalArgumentException();
+        }
         initChecker(firstString, secondString);
         setChecker();
         calAlphaCount();
