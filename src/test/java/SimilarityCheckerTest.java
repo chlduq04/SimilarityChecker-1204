@@ -11,4 +11,10 @@ class SimilarityCheckerTest {
         assertEquals(true, isSame);
     }
 
+    @Test
+    void checkIsNotSameAlpha() {
+        SimilarityChecker similarityChecker = new SimilarityChecker();
+        boolean isSame = similarityChecker.checkSameAlpha("BAA", "AAA");
+        assertEquals(false, isSame);
+    }
 }
